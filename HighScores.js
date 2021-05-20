@@ -9,12 +9,14 @@ reset.addEventListener("click", function() {
  location.reload();   
 });
 
-var scores = localStorage.getItem("scores");
-scores - JSON.parse(scores);
+var allScores = localStorage.getItem("allScores");
+allScores - JSON.parse(allScores);
 
-if (scores !== null) {
-   for (var i = 0; i < scores.length; i++) {
-       liCreate.textcontent = scores [i].initials + " " + scores[i].score;
+if (allScores !== null) {
+
+   for (var i = 0; i < allScores.length; i++) {
+       var liCreate = document.createElement("li");
+       liCreate.textcontent = allScores[i].initials + " " + allScores[i].score;
        highScore.appendChild(liCreate);
    } 
 }

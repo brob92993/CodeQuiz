@@ -79,7 +79,7 @@ function render(questionIndex) {
     userOptions.forEach(function (newItem) {
         var liCreate = document.createElement("li");
         liCreate.textContent = newItem;
-        questionsDiv.appendChild(ulCreate); //attach the unordered list below the questions div
+        divQuestions.appendChild(ulCreate); //attach the unordered list below the questions div
         ulCreate.appendChild(liCreate); 
         liCreate.addEventListener("click", (compare)); // when an list option is clicked, compare that option to the answer
     })
@@ -87,35 +87,36 @@ function render(questionIndex) {
 
 // this will compare the clicked li from the function above, with the answers
 function compare(event) {
-   var selection = event.target;
-   
-   if (selection.matches("li")) {
+    var element = event.target;
 
-    var divCreate = document.createElement ("div");
-    divCreate.setAttribute("id", "divCreate");
+    if (element.matches("li")) {
 
-// if the selection is equal to the answer, in the created div, populate the text below with the answer
-   if (selection.textContent == questions[questionIndex].answer) {
-       score ++;
-   }   divCreate.textContent = "You got it! The answer is:  " + questions[questionIndex].answer;
-// if the selection is anything but the right selection, deduct 10 sections   
-   } else {
-       timeLeft = timeLeft - penalty;
-       divCreate.textContent = "Not this time! The right option is:  " + questions[questionIndex].answer;
-   }
-}
+        var createDiv = document.createElement("div");
+        createDiv.setAttribute("id", "createDiv");
+         
+        if (element.textContent == questions[questionIndex].answer) {
+            score++;
+            createDiv.textContent = "Correct! The answer is:  " + questions[questionIndex].answer;
+            
+        } else {
+            // Will take 10 seconds off the timer if the question is wrong
+            timeLeft = timeLeft - penalty;
+            createDiv.textContent = "Wrong! The correct answer is:  " + questions[questionIndex].answer;
+        }
 
-questionIndex++;
+    }
+   questionIndex++;
 
 // if you've gone through all the questions, end the quiz/ if not, continue on with questions
     if (questionIndex >= questions.length) {
     endQuiz();
-    divCreate.textContent = "You've reached the end of the quiz!" + " " + "Your final score is" + score + "/" + questions.length;
+    createDiv.textContent = "You've reached the end of the quiz!" + " " + "Your final score is" + score + "/" + questions.length;
     } else {
     render(questionIndex);
-}
 
-questionsDiv.appendChild(divCreate);
+divQuestions.appendChild(createDiv);
+
+}
 
 function endQuiz() {
     divQuestions.innerHTML = "";
@@ -143,7 +144,7 @@ var pCreate = document.createElement("p");
         clearInterval(holdInterval);
         pCreate.textContent = "Your final score is: " + timeRemaining;
 
-    questionsDiv.appendChild(p2Create);
+    divQuestions.appendChild(p2Create);
 }
 
 // section to input your initals and submit those initials for the highscore
@@ -162,35 +163,32 @@ var submitCreate = document.createElement("button");
 
     divQuestions.appendChild(submitCreate);
 
-}
-
 // function to store the initials and score into local storage
-
 submitCreate.addEventListener ("click", function() {
    var initials = inputCreate.value;
    
    if (initials === null) {
       console.log ("no value");
 
-   } else {
-       var finalScore = {
-           initials: initials,
-           score: timeRemaining
-       }  // the final score contains the initials submitted as well as the score
-       
-       console.log(finalScore);
-       var scores = localStorage.getItem("scores");
-       if (scores === null) {
-           scores = [];
-       } else {
-           scores = JSON.parse(scores);
-       } 
-       scores.push(finalScore);
-       var newScore = JSON.stringify(scores);
-       localStorage.setItem("scores", newScore);
+} else {
+    var finalScore = {
+        initials: initials,
+        score: timeRemaining
+}
+    console.log(finalScore);
+
+    var allScores = localStorage.getItem("allScores");
+if (allScores === null) {
+        allScores = [];
+} else {
+        allScores = JSON.parse(allScores);
+}
+    allScores.push(finalScore);
+    var newScore = JSON.stringify(allScores);
+    localStorage.setItem("allScores", newScore);
     
-    window.location.replace("./highscores.html");
-    }
+    window.location.replace("./highScores.html");
+}
 });
 
-
+}}
