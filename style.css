@@ -7,7 +7,7 @@
     height: 500px;
     border: 1px solid purple;
 }
-#startTime {
+#start {
     background-color: purple;
     margin-left: 33%;
     padding: 15px 32px;
@@ -22,7 +22,7 @@
     float: right;
 }
 
-#Back {
+#back {
     background-color: purple;
     position: relative;
     padding: 10px;
@@ -37,7 +37,7 @@
 
 
 
-#clear {
+#reset {
     background-color: purple;
     position: relative;
     padding: 10px;
@@ -57,7 +57,7 @@ textarea {
     margin: 20px;
 }
 
-#Submit {
+#submit {
     background-color: purple;
     margin-left: 33%;
     padding: 15px 32px;
@@ -87,8 +87,8 @@ li {
     color: white;
         }
 
-#divCreate {
-    margin-top: 20px;
+#createDiv {
+    margin-top: 15px;
     border-top: 1px solid lightgray;
         }
 
@@ -106,12 +106,12 @@ body {
 a {
         margin-left: 20%;
 }
-#goBack {
+#back {
     position: relative;
     left: 55%;
 }
 
-#clear {
+#reset {
     position: relative;
     right: 5%;
     }
@@ -129,7 +129,7 @@ left: 10%;
 }
 
 a {
-    margin-left: 10%;
+margin-left: 10%;
 }
 
      

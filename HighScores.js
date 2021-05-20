@@ -3,24 +3,26 @@ var reset = document.querySelector("#reset");
 var back = document.querySelector("#back");
 
 
-// listen for a click to clear/reset the scores
-reset.addEventListener("click", function() {
- localStorage.clear();
- location.reload();   
+// listens for a click event to reset highscores 
+reset.addEventListener("click", function () {
+    localStorage.clear();
+    location.reload();
 });
-
+// pulls the scores from local storage 
 var allScores = localStorage.getItem("allScores");
-allScores - JSON.parse(allScores);
+allScores = JSON.parse(allScores);
 
 if (allScores !== null) {
 
-   for (var i = 0; i < allScores.length; i++) {
-       var liCreate = document.createElement("li");
-       liCreate.textcontent = allScores[i].initials + " " + allScores[i].score;
-       highScore.appendChild(liCreate);
-   } 
-}
+    for (var i = 0; i < allScores.length; i++) {
 
-back.addEventListener("click", function() {
-    window.location.replace("index.html");
+        var createLi = document.createElement("li");
+        createLi.textContent = allScores[i].initials + " " + allScores[i].score;
+        highScore.appendChild(createLi);
+
+    }
+}
+// listens for a click to go back to the quiz start page
+back.addEventListener("click", function () {
+    window.location.replace("./index.html");
 });

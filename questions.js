@@ -149,12 +149,12 @@ var pCreate = document.createElement("p");
 
 // section to input your initals and submit those initials for the highscore
 
-var inputCreate = document.createElement("input");
-    inputCreate.setAttribute("type", "text");
-    inputCreate.setAttribute("id", "initials");
-    inputCreate.textContent = "";
+var createInput = document.createElement("input");
+    createInput.setAttribute("type", "text");
+    createInput.setAttribute("id", "initials");
+    createInput.textContent = "";
 
-    divQuestions.appendChild(inputCreate);
+    divQuestions.appendChild(createInput);
 
 var submitCreate = document.createElement("button");
     submitCreate.setAttribute("type", "submit");
@@ -164,31 +164,29 @@ var submitCreate = document.createElement("button");
     divQuestions.appendChild(submitCreate);
 
 // function to store the initials and score into local storage
-submitCreate.addEventListener ("click", function() {
-   var initials = inputCreate.value;
-   
-   if (initials === null) {
-      console.log ("no value");
+submitCreate.addEventListener("click", function () {
+    var initials = createInput.value;
 
-} else {
-    var finalScore = {
-        initials: initials,
-        score: timeRemaining
-}
-    console.log(finalScore);
+    if (initials === null) {
 
-    var allScores = localStorage.getItem("allScores");
-if (allScores === null) {
-        allScores = [];
-} else {
-        allScores = JSON.parse(allScores);
-}
-    allScores.push(finalScore);
-    var newScore = JSON.stringify(allScores);
-    localStorage.setItem("allScores", newScore);
-    
-    window.location.replace("./highScores.html");
-}
-});
+        console.log("No value entered!");
 
-}}
+    } else {
+        var finalScore = {
+            initials: initials,
+            score: timeRemaining
+        }
+        console.log(finalScore);
+        var allScores = localStorage.getItem("allScores");
+        if (allScores === null) {
+            allScores = [];
+        } else {
+            allScores = JSON.parse(allScores);
+        }
+        allScores.push(finalScore);
+        var newScore = JSON.stringify(allScores);
+        localStorage.setItem("allScores", newScore);
+        // Travels to final page
+        window.location.replace("./highScores.html");
+    }
+})}}
