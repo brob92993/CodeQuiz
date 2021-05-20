@@ -9,16 +9,16 @@ reset.addEventListener("click", function() {
  location.reload();   
 });
 
-var allScores = localStorage.getItem("allScores");
-allScores - JSON.parse(allScores);
+var scores = localStorage.getItem("scores");
+scores - JSON.parse(scores);
 
-if (allScores !== null) {
-   for (var i = 0; i < allScores.length; i++) {
-       createLi.textcontent = allScores [i].initials + " " + allScores[i].score;
-       highScore.appendChild(createLi);
+if (scores !== null) {
+   for (var i = 0; i < scores.length; i++) {
+       liCreate.textcontent = scores [i].initials + " " + scores[i].score;
+       highScore.appendChild(liCreate);
    } 
 }
 
 back.addEventListener("click", function() {
-    window.location.replace("./index.html");
+    window.location.replace("index.html");
 });

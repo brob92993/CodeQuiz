@@ -42,6 +42,7 @@ var questions = [
     },
 
 ];
+
 // function to show the timer; notifies that time is up when there is no time left
 timer.addEventListener("click", function() {
     if (holdInterval === 0) {
@@ -51,29 +52,30 @@ timer.addEventListener("click", function() {
 
     if (timeLeft <= 0) {
         clearInterval();
-        allDone();
+        endQuiz();
         currentTime.textContent = "TIme's up!"
         }
     }, 1000);
 }
+
 render(questionIndex);
 
 });
 
 function render(questionIndex) {
-    // Clears existing content inside the questions div and the created list 
+// Clears existing content inside the questions div and the created list 
     divQuestions.innerHTML = "";
     ulCreate.innerHTML = "";
 
-    // For loops to loop through all info in array
+// For loops to loop through all info in array
     for (var i = 0; i < questions.length; i++) {
-        // for each question, only show the question itself first, followed by the choices to pick from
+// for each question, only show the question itself first, followed by the choices to pick from
         var userQuestion = questions[questionIndex].title;
         var userOptions = questions[questionIndex].options;
         divQuestions.textContent = userQuestion; // the content of the questions div will be the question title
     }
 
-    // for each function for each question
+// for each function for each question
     userOptions.forEach(function (newItem) {
         var liCreate = document.createElement("li");
         liCreate.textContent = newItem;
@@ -91,6 +93,104 @@ function compare(event) {
 
     var divCreate = document.createElement ("div");
     divCreate.setAttribute("id", "divCreate");
+
+// if the selection is equal to the answer, in the created div, populate the text below with the answer
+   if (selection.textContent == questions[questionIndex].answer) {
+       score ++;
+   }   divCreate.textContent = "You got it! The answer is:  " + questions[questionIndex].answer;
+// if the selection is anything but the right selection, deduct 10 sections   
+   } else {
+       timeLeft = timeLeft - penalty;
+       divCreate.textContent = "Not this time! The right option is:  " + questions[questionIndex].answer;
    }
 }
+
+questionIndex++;
+
+// if you've gone through all the questions, end the quiz/ if not, continue on with questions
+    if (questionIndex >= questions.length) {
+    endQuiz();
+    divCreate.textContent = "You've reached the end of the quiz!" + " " + "Your final score is" + score + "/" + questions.length;
+    } else {
+    render(questionIndex);
+}
+
+questionsDiv.appendChild(divCreate);
+
+function endQuiz() {
+    divQuestions.innerHTML = "";
+    currentTime.innerHTML = "";
+
+// what the page will look like when the quiz ends
+
+//header of the page
+var h1Create = document.createElement("h1");
+    h1Create.setAttribute("id", "h1Create");
+    h1Create.textContent = "End of the Coding Quiz!"
+
+    divQuestions.appendChild(h1Create); //puts the header below the questions div
+
+// paragraph below the header
+var pCreate = document.createElement("p");
+    pCreate.setAttribute("id", "pCreate");
+
+    divQuestions.appendChild(pCreate);
+
+// Calculates the time thats left and puts the final score up
+    if (timeLeft >= 0) {
+        var timeRemaining = timeLeft;
+        var p2Create = document.createElement("p");
+        clearInterval(holdInterval);
+        pCreate.textContent = "Your final score is: " + timeRemaining;
+
+    questionsDiv.appendChild(p2Create);
+}
+
+// section to input your initals and submit those initials for the highscore
+
+var inputCreate = document.createElement("input");
+    inputCreate.setAttribute("type", "text");
+    inputCreate.setAttribute("id", "initials");
+    inputCreate.textContent = "";
+
+    divQuestions.appendChild(inputCreate);
+
+var submitCreate = document.createElement("button");
+    submitCreate.setAttribute("type", "submit");
+    submitCreate.setAttribute("id", "Submit");
+    submitCreate.textContent = "Submit";
+
+    divQuestions.appendChild(submitCreate);
+
+}
+
+// function to store the initials and score into local storage
+
+submitCreate.addEventListener ("click", function() {
+   var initials = inputCreate.value;
+   
+   if (initials === null) {
+      console.log ("no value");
+
+   } else {
+       var finalScore = {
+           initials: initials,
+           score: timeRemaining
+       }  // the final score contains the initials submitted as well as the score
+       
+       console.log(finalScore);
+       var scores = localStorage.getItem("scores");
+       if (scores === null) {
+           scores = [];
+       } else {
+           scores = JSON.parse(scores);
+       } 
+       scores.push(finalScore);
+       var newScore = JSON.stringify(scores);
+       localStorage.setItem("scores", newScore);
+    
+    window.location.replace("./highscores.html");
+    }
+});
+
 
