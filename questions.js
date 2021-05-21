@@ -51,7 +51,7 @@ timer.addEventListener("click", function() {
             currentTime.textContent = "Time: " + timeLeft;
 
     if (timeLeft <= 0) {
-        clearInterval();
+        clearInterval(holdInterval);
         endQuiz();
         currentTime.textContent = "TIme's up!"
         }
@@ -96,12 +96,12 @@ function compare(event) {
          
         if (element.textContent == questions[questionIndex].answer) {
             score++;
-            createDiv.textContent = "Correct! The answer is:  " + questions[questionIndex].answer;
+            createDiv.textContent = "Right! The answer is:  " + questions[questionIndex].answer;
             
         } else {
             // Will take 10 seconds off the timer if the question is wrong
             timeLeft = timeLeft - penalty;
-            createDiv.textContent = "Wrong! The correct answer is:  " + questions[questionIndex].answer;
+            createDiv.textContent = "Nope! The correct answer is:  " + questions[questionIndex].answer;
         }
 
     }
@@ -164,12 +164,13 @@ var submitCreate = document.createElement("button");
     divQuestions.appendChild(submitCreate);
 
 // function to store the initials and score into local storage
+
 submitCreate.addEventListener("click", function () {
     var initials = createInput.value;
 
     if (initials === null) {
 
-        console.log("No value entered!");
+        console.log("No value");
 
     } else {
         var finalScore = {
@@ -186,7 +187,8 @@ submitCreate.addEventListener("click", function () {
         allScores.push(finalScore);
         var newScore = JSON.stringify(allScores);
         localStorage.setItem("allScores", newScore);
-        // Travels to final page
+
+        // Takes you to the highscore page
         window.location.replace("./highScores.html");
     }
 })}}
