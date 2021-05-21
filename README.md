@@ -4,5 +4,8 @@ This weeks homework was to create a timed quiz web application that has multiple
 
 [Code Quiz](https://brob92993.github.io/Week4-CodeQuiz/)
 
+![screenshot1](img/codescreenshot1.PNG)
 
+![screenshot2](img/codescreenshot2.PNG)
 
+![screenshot3](img/codescreenshot3.PNG)
