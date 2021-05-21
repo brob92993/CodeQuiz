@@ -189,6 +189,6 @@ submitCreate.addEventListener("click", function () {
         localStorage.setItem("allScores", newScore);
 
         // Takes you to the highscore page
-        window.location.replace("./highScores.html");
+        window.location.replace("./highscores.html");
     }
 })}}
